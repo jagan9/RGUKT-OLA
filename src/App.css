@@ -1,0 +1,19 @@
+body{
+    background: url('media/black_checks.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+width: 100vw;
+}
+
+.footer{
+    background-color: rgb(225, 228, 49);
+    height: 25px;
+    margin: auto;
+  }
+.home{
+      background-image: url('./media/black_checks.jpg');
+      min-height: 100vh;
+      min-width: 99vw;
+    }
