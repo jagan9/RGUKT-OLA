@@ -74,6 +74,12 @@ const [incr, setincr] = React.useState("")
 const [cat, setcat] = React.useState("")
 const [description, setdescription] = React.useState("")
 
+const [name_error, setname_error] = React.useState(null)
+const [price_error, setprice_error] = React.useState(null)
+const [incr_error, setincr_error] = React.useState(null)
+const [maxbid_error, setmaxbid_error] = React.useState(null)
+const [description_error, setdescription_error] = React.useState(null)
+
 const [open, setOpen] = React.useState(false);
 const [inFav, setinFav] = React.useState(false);
 const [snackbar, setsnackbar] = React.useState(false);
@@ -140,7 +146,8 @@ const [checked, setChecked] = React.useState(true);
     }
 
    const removeFav = () => {
-
+    setsnackbar(true);
+    setsnackbar_error("Removing.....")
     let reqFav = props.product.fav?props.product.fav:[];
     let index = reqFav.indexOf(props.user);
     reqFav.splice(index,1);
@@ -152,16 +159,26 @@ const [checked, setChecked] = React.useState(true);
     .doc(props.product.id)
     .update(data)
     .then(()=>{
+    setsnackbar_error("Success")
      props.loadOnce();
+     setsnackbar(false)
     }).catch((err)=>{
       console.log(err);
       })
     }
 
+
       const editItem = () =>{
-      setOpen(false);
+      setname_error(null);
+      setprice_error(null);
+      setdescription_error(null);
+      setmaxbid_error(null);
+      setincr_error(null);
+
+      
 
       let data = {};
+      let validData=true;
 
       data["name"] = name;
       data["allow_bid"] = allow_bid;
@@ -175,8 +192,45 @@ const [checked, setChecked] = React.useState(true);
       data["incr"] = incr;
       }
 
+      if (name === "") {
+        setname_error("Requried!");
+        validData=false;
+      }
+
+      if (name.length < 2) {
+        setname_error("Minimum two characters!");
+        validData=false;
+      }
+
+      if (price === "") {
+        setprice_error("Requried!");
+        validData=false;
+      }
+
+      if (description === "") {
+        setdescription_error("Requried!");
+        validData=false;
+      }
+
+      if (description.length < 100) {
+        setdescription_error("Minimum 100 characters!");
+        validData=false;
+      }
+
+      if (incr === "") {
+        setincr_error("Requried!");
+        validData=false;
+      }
+
+      if (max_bid === "") {
+        setmaxbid_error("Requried!");
+        validData=false;
+      }
+
+      if(validData){
+      setOpen(false);
       setsnackbar(true);
-      setsnackbar_error("Working on it wait");
+      setsnackbar_error("Working on it wait...");
 
       firestore
       .collection("PRODUCTS")
@@ -188,12 +242,14 @@ const [checked, setChecked] = React.useState(true);
       }).catch((err)=>{
         console.log(err);
        })
-      };
+      }
+
+    };
 
       return (<>  
         <Box 
           boxShadow={2}
-          width="340px"
+          width="320px"
           style={{
              background:"white",
              borderRadius:"20px",
@@ -266,6 +322,7 @@ const [checked, setChecked] = React.useState(true);
           {
             props.user !=="" && props.del==="true"?
              <CloseIcon 
+             className="close"
               style={{
                 border:"1.7px solid red",
                 color:"red",
@@ -278,14 +335,28 @@ const [checked, setChecked] = React.useState(true);
           }
                 
             </div>
-
-            <Typography 
-            variant="h6" 
-            style={{paddingLeft:"17px",
-            color:"#28a745",
-            fontWeight:"bold"}}>
-            Price : {props.product.price} 
-            </Typography>
+            {
+              props.product.allow_bid ? 
+              (
+              <Typography 
+              variant="h6" 
+              style={{paddingLeft:"17px",
+              color:"#28a745",
+              fontWeight:"bold"}}>
+              Bidding : {props.product.price} { '-' } {props.product.max_bid}
+              </Typography>
+              )
+              :
+              (
+              <Typography 
+              variant="h6" 
+              style={{paddingLeft:"17px",
+              color:"#28a745",
+              fontWeight:"bold"}}>
+              Price : {props.product.price} 
+              </Typography>
+              )
+            }
 
             <Typography 
             variant="subtitle1" 
@@ -333,6 +404,8 @@ const [checked, setChecked] = React.useState(true);
           <TextField
           style={{minWidth:"340px",
           marginTop:"10px"}}
+          error={name_error!=null}
+          helperText={name_error}
           defaultValue={props.product.name}
           onChange={(e)=>setname(e.target.value)}
           variant="outlined"
@@ -367,6 +440,8 @@ const [checked, setChecked] = React.useState(true);
         <br/>
         <TextField
           type="number"
+          error={price_error!=null}
+          helperText={price_error}
           onChange={(e)=>setprice(e.target.value)}
           style={{minWidth:"340px",marginTop:"10px"}}
           defaultValue={props.product.price}
@@ -381,6 +456,8 @@ const [checked, setChecked] = React.useState(true);
         <br/>
           <TextField
           type="number"
+          error={maxbid_error!=null}
+          helperText={maxbid_error}
           onChange={(e)=>setmax_bid(e.target.value)}
           style={{minWidth:"340px",marginTop:"10px"}}
           defaultValue={props.product.max_bid}
@@ -396,6 +473,8 @@ const [checked, setChecked] = React.useState(true);
           <br/>
           <TextField
           type="number"
+          error={incr_error!=null}
+          helperText={incr_error}
           onChange={(e)=>setincr(e.target.value)}
           style={{minWidth:"340px",marginTop:"10px"}}
           defaultValue={props.product.incr}
@@ -412,6 +491,8 @@ const [checked, setChecked] = React.useState(true);
           <br/>
           <TextField
           type="number"
+          error={price_error!=null}
+          helperText={price_error}
           onChange={(e)=>setprice(e.target.value)}
           style={{minWidth:"340px",marginTop:"10px"}}
           defaultValue={props.product.price}
@@ -449,6 +530,8 @@ const [checked, setChecked] = React.useState(true);
       </label>{''}
         <br/>
         <TextField
+        error={description_error!=null}
+        helperText={description_error}
         onChange={(e)=>setdescription(e.target.value)}
         style={{minWidth:"340px",marginTop:"10px"}}
         defaultValue={props.product.description}
