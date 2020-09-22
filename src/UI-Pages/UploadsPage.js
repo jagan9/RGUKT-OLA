@@ -185,9 +185,22 @@ class UploadsPage extends React.Component {
   		this.setState({
         name_error:"required!"
       })
-  		validData=false;
-  		
+  		validData=false; 		
   	}
+
+    if (this.state.product_name.length>0 && this.state.product_name.length<2) {
+      this.setState({
+        name_error:"Minimum two characters!"
+      })
+      validData=false;    
+    }
+
+    if (this.state.product_name.length>25) {
+      this.setState({
+        name_error:"Maximum 15 characters!"
+      })
+      validData=false;    
+    }
 
     if (this.state.allow_bid) {
 
@@ -204,6 +217,13 @@ class UploadsPage extends React.Component {
       })
       validData=false;     
     }
+
+    if (this.state.price > this.state.maxbid) {
+      this.setState({
+        price_error:"must be less than max price!"
+      })
+      validData=false
+    }
   }
 
   	if (this.state.price === "") {
@@ -213,12 +233,21 @@ class UploadsPage extends React.Component {
   		validData=false
   	}
 
+
+
   	if (this.state.description === "") {
   		this.setState({
         description_error:"required!"
       })
   		validData=false
   	}
+
+    if (this.state.description.length<100 ) {
+      this.setState({
+        description_error:"Minimum 100 characters!"
+      })
+      validData=false
+    }
 
   	if (this.state.images.length < 2) {
   		 this.setState({
@@ -234,7 +263,10 @@ class UploadsPage extends React.Component {
   	})
 
   	if (validData) {
-
+      this.state.snackbar_error="Processing!"
+       this.setState({
+          snackbar:true,
+        })
   		let urls=[];
       let index=0;
       this.setState({
@@ -301,6 +333,10 @@ class UploadsPage extends React.Component {
         	this.setState({
           loading:false,
         });
+          this.state.snackbar_error="Successful"
+       this.setState({
+          snackbar:true,
+        })
         	console.log("Document successfully written!");
         }).catch((error)=>{
           console.log(error)
@@ -489,7 +525,6 @@ class UploadsPage extends React.Component {
          borderRadius:"4px"}}/>
          </div>
          </div>
-
          <br/><br/>
          <div 
          style={{display:"flex",
@@ -500,16 +535,16 @@ class UploadsPage extends React.Component {
          <Typography 
          variant="h6" 
          style={{marginLeft:"22px"}}>
-         Maximum Price
+         Minimum Price
          </Typography>
-        <TextField
-         label="Maximum Price"
+         <TextField
+         label="Minimum price"
          variant="filled" 
          size="small"
-         error={this.state.maxbid_error!==""}
-            helperText={this.state.maxbid_error}
-            name="maxbid"
-            onChange={this.onFieldChange}
+         error={this.state.price_error!==""}
+          helperText={this.state.price_error}
+          name="price"
+          onChange={this.onFieldChange}
          type="number"
          style={{width:"300px",
          marginLeft:"22px",
@@ -519,36 +554,39 @@ class UploadsPage extends React.Component {
          <br/><br/>
          </div>
          </div>
+         
+         
         </div>}
 
-				 <div 
+        <div 
          style={{display:"flex",
          flexWrap:"wrap",
          alignItems:"center",
          justifyContent:"center"}}>
-				 <div>
-				 <Typography 
+         <div>
+         <Typography 
          variant="h6" 
          style={{marginLeft:"22px"}}>
-         {this.state.allow_bid?"Minimun Price":"Price"}
+         {this.state.allow_bid?"Maximun Price":"Price"}
          </Typography>
-				 <TextField
-				 label={this.state.allow_bid?"Minimun Price":"Price"} 
-				 variant="filled" 
-				 size="small"
-				 error={this.state.price_error!==""}
-	             helperText={this.state.price_error}
-	             name="price"
-	             onChange={this.onFieldChange}
-				 type="number"
-				 style={{width:"300px",
+        <TextField
+         label={this.state.allow_bid?"Maximun Price":"Price"} 
+         variant="filled" 
+         size="small"
+         error={this.state.maxbid_error!==""}
+          helperText={this.state.maxbid_error}
+          name="maxbid"
+          onChange={this.onFieldChange}
+         type="number"
+         style={{width:"300px",
          marginLeft:"22px",
          marginRight:"35px",
          background:"white",
          borderRadius:"4px"}}/>
-				 <br/><br/>
-				 </div>
-				 </div>
+         <br/><br/>
+         </div>
+         </div>
+				 
 				 <div 
           style={{display:"flex",
           flexWrap:"wrap",
