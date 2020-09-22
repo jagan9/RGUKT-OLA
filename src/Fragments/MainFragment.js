@@ -288,7 +288,8 @@ if (this.props.userdata === null) {
       viewDetails={(id)=>this.viewDetails(id)} 
       user={this.state.uid}
       product={
-        this.props.products?this.props.products:null}
+        this.props.products? 
+        this.props.products.filter((products)=>(products.approved)):[]}/>
       />
       </Route>
 
@@ -329,7 +330,7 @@ if (this.props.userdata === null) {
       viewDetails={(id)=>this.viewDetails(id)} 
       product={
         this.props.products? 
-        this.props.products.filter((products)=>( !products.approved)):null}/>
+        this.props.products.filter((products)=>( !products.approved)):[]}/>
       </Auth>
       </Route>
       
