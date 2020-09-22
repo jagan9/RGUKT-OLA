@@ -5,8 +5,9 @@ import {Box} from '@material-ui/core';
 import HeaderFragment from '../Fragments/HeaderFragment';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import { Link } from 'react-router-dom';
+import {Redirect, Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import {Snackbar} from '@material-ui/core';
 import RestoreIcon from '@material-ui/icons/Restore';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Modal from '@material-ui/core/Modal';
@@ -30,7 +31,10 @@ class ProductDetailsPage extends React.Component {
 			 activeIndex: 0,
 			 amount: 0,
 			 isModalOpen: false,
-       show_bids:true
+       show_bids:true,
+       app:false,
+       snackbar_error:"",
+       snackbar:false
 		}
 	}
 
@@ -73,14 +77,29 @@ componentDidMount(){
   }
 
   approveProduct = () => {
+
+    this.setState({snackbar_error:"Processing...."})
+      this.setState({
+        snackbar:true
+      })
     firestore
     .collection("PRODUCTS")
     .doc(this.props.product.id)
     .update({"approved":true})
     .then(()=>{
+      this.setState({snackbar_error:"Approved successfully."})
+      this.setState({
+        snackbar:true
+      })
     }).catch((error)=>{
       console.log(error);
+      this.setState({snackbar_error:"Unknown Error occured."})
+      this.setState({
+        snackbar:true
+      })
     })
+
+    
   }
 
   
@@ -315,8 +334,26 @@ componentDidMount(){
                 </a>
               </div>
             ) : (
-              <React.Fragment />
+              <React.Fragment/>
             )}
+            
+            {
+              this.props.data &&
+              !this.props.product.approved &&
+              this.props.product.owner_id.id === this.props.data[0].id ?
+              (
+              <>
+              <div style={{textAlign:"center"}}>
+              <br/>
+              <b>
+              ( Waiting for Admin approval )
+              </b>
+              </div>
+              </>
+              )
+              :
+              <React.Fragment />
+            }
 
             {this.props.data &&
             !this.props.product.approved &&
@@ -333,8 +370,10 @@ componentDidMount(){
                   </Button>
                
               </div>
-            ) : 
-            <React.Fragment/>}
+            ) : (
+           <React.Fragment />
+            )
+            }
        <br/>
 			 <hr/>
 			 <div 
@@ -459,6 +498,18 @@ componentDidMount(){
              </form>
           </Dialog>
         </div>
+        <Snackbar
+        anchorOrigin={{
+         vertical: 'bottom',
+         horizontal: 'left',
+         }}
+         open={this.state.snackbar}
+         autoHideDuration={1000}
+         onClose={e=>
+        this.setState({snackbar:false})
+         }
+         message={this.state.snackbar_error} />
+       
 			</div>
 		)
 	}
