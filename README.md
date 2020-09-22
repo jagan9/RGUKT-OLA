@@ -49,7 +49,7 @@ all users will be able to see that product online. This is to ensure that no fak
 
 ## View live App
 
-Hosted at **https://click-ism.herokuapp.com/**
+Hosted at **https://jagan-47f02.web.app/**
 
 ## Tech Stack Used
 
