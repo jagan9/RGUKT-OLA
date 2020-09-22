@@ -75,8 +75,23 @@ class Signup extends Component {
 			validData=false;			
 		}
 
+		if (this.state.email.length>0 && this.state.email.length<2) {
+			this.state.email_error="Minimum two characters!";
+			validData=false;			
+		}
+
 		if (this.state.password === "") {
 			this.state.password_error="Requried";
+			validData=false;	
+		}
+
+		if (this.state.password.length>0 && this.state.password.length<5) {
+			this.state.password_error="Password must be 7 characters";
+			validData=false;	
+		}
+
+		if (this.state.password.length>10) {
+			this.state.password_error="Password less than 10 characters";
 			validData=false;	
 		}
 
@@ -90,13 +105,38 @@ class Signup extends Component {
 			validData=false
 		}
 
+		if (this.state.user_name.length>0 && this.state.user_name.length<2) {
+			this.state.name_error="Minimum two characters!"
+			validData=false
+		}
+
+		if (this.state.user_name.length>14) {
+			this.state.name_error="Maximum 14 characters!"
+			validData=false
+		}
+
 		if (this.state.first_name==="") {
 			this.state.firstname_error="Requried!"
 			validData=false
 		}
 
+		if (this.state.first_name.length>0 && this.state.first_name.length<2) {
+			this.state.firstname_error="Minimum two characters!"
+			validData=false
+		}
+
+		if (this.state.first_name.length>14) {
+			this.state.firstname_error="Maximum 14 characters!"
+			validData=false
+		}
+
 		if (this.state.facebook==="") {
 			this.state.facebook_error="Requried!"
+			validData=false
+		}
+
+		if (this.state.facebook.length>0 && this.state.facebook.length<2) {
+			this.state.facebook_error="Minimum two characters!"
 			validData=false
 		}
 
@@ -117,6 +157,16 @@ class Signup extends Component {
 
 		if (this.state.last_name==="") {
 			this.state.lastname_error="Requried!"
+			validData=false
+		}
+
+		if (this.state.last_name.length>0 && this.state.last_name.length<2) {
+			this.state.lastname_error="Minimum two characters!"
+			validData=false
+		}
+
+		if (this.state.last_name.length>14) {
+			this.state.lastname_error="Maximum 14 characters!"
 			validData=false
 		}
 
