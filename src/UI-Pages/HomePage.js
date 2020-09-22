@@ -1,10 +1,8 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import pic1 from '../media/1.jpeg';
-import pic2 from '../media/2.jpeg';
-import pic3 from '../media/3.jpeg';
-import pic4 from '../media/4.jpeg';
-import pic5 from '../media/5.jpeg';
+import pic1 from '../media/Wallpaper_1.jpg';
+import pic2 from '../media/Wallpaper_2.jpg';
+import pic3 from '../media/Wallpaper_3.jpg';
 import { autoPlay } from 'react-swipeable-views-utils';
 import Typography from '@material-ui/core/Typography';
 import ProductView from '../Fragments/ProductView';
@@ -31,15 +29,7 @@ class Home extends React.Component {
 			 {
 			 	banner:pic3,
 			 	color:"white"
-			 },
-			 {
-			 	banner:pic4,
-			 	color:"white"
-			 },
-			 {
-			 	banner:pic5,
-			 	color:"white"
-			 },
+			 }
 			 ],
 					 
 		}
@@ -53,6 +43,22 @@ class Home extends React.Component {
 
 
   render() {
+    const featured = this.props.product.slice(0, 3);
+     const featuredCards = featured.map((product,index) => {
+      return(
+        <div 
+        key={index}
+       style={{display:"flex",
+       flexWrap:"wrap",
+       justifyContent:"center"}}>
+       <Products
+       viewDetails={(id)=>this.props.viewDetails(id)} 
+       home="true"
+       user={this.props.user}
+       product={[product]}/>
+       </div>
+        )
+     })
     return (
       <div>      
         <div>
@@ -79,7 +85,7 @@ class Home extends React.Component {
             ) 
             : 
             null
-          }
+          } 
           </div>
         ))}
        </AutoPlaySwipeableViews>
@@ -112,18 +118,9 @@ class Home extends React.Component {
        textAlign:"center"}} >
        Featured Products
        </h1>
-       {this.props.product?
-       <div 
-       style={{display:"flex",
-       flexWrap:"wrap",
-       justifyContent:"center"}}>
-       <Products
-	     viewDetails={(id)=>this.props.viewDetails(id)} 
-       home="true"
-       user={this.props.user}
-       product={[this.props.product[0]]}/>
+       <div style={{display: 'flex',flexWrap:"wrap",justifyContent:  'center' }}>
+       {featuredCards}
        </div>
-       :null }
       </div>
     )
   }
