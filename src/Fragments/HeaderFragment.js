@@ -154,7 +154,7 @@ function ButtonAppBar(props) {
       onClick={toggleDrawer(Left, false)} 
       >
           <ListItem button onClick={()=>closeLeft()}>
-            <ListItemIcon>< HomeIcon/></ListItemIcon>
+            <ListItemIcon>< HomeIcon style={{color:"red"}}/></ListItemIcon>
             <ListItemText primary="Home" />
           </ListItem>
           </a>
@@ -162,7 +162,7 @@ function ButtonAppBar(props) {
       <List>
       <a href="/products" style={{textDecoration:"none",color:"inherit"}} >
           <ListItem button onClick={()=>closeLeft()}>
-            <ListItemIcon>< RedeemIcon/></ListItemIcon>
+            <ListItemIcon>< RedeemIcon style={{color:"red"}}/></ListItemIcon>
             <ListItemText primary="Products" />
           </ListItem>
           </a>
@@ -170,7 +170,7 @@ function ButtonAppBar(props) {
       <List>
       <a href="/search" style={{textDecoration:"none",color:"inherit"}} >
           <ListItem button onClick={()=>closeLeft()}>
-            <ListItemIcon>< SearchIcon/></ListItemIcon>
+            <ListItemIcon>< SearchIcon style={{color:"red"}}/></ListItemIcon>
             <ListItemText primary="Search" />
           </ListItem>
       </a>    
@@ -180,7 +180,7 @@ function ButtonAppBar(props) {
        <List>
        <a href="/favorites" style={{textDecoration:"none",color:"inherit"}} >
           <ListItem button onClick={()=>closeLeft()}>
-            <ListItemIcon>< FavoriteIcon/></ListItemIcon>
+            <ListItemIcon>< FavoriteIcon style={{color:"red"}}/></ListItemIcon>
             <ListItemText primary="Favorites" />
           </ListItem>
           </a>
@@ -188,7 +188,7 @@ function ButtonAppBar(props) {
       <List>
       <a href="/upload" style={{textDecoration:"none",color:"inherit"}} >
           <ListItem button onClick={()=>closeLeft()}>
-            <ListItemIcon>< CloudUploadIcon/></ListItemIcon>
+            <ListItemIcon>< CloudUploadIcon style={{color:"red"}}/></ListItemIcon>
             <ListItemText primary="Upload" />
           </ListItem>
           </a>
@@ -196,7 +196,7 @@ function ButtonAppBar(props) {
       <List>
       <a href="/my_uploads" style={{textDecoration:"none",color:"inherit"}} >
           <ListItem button onClick={()=>closeLeft()}>
-            <ListItemIcon>< ListIcon/></ListItemIcon>
+            <ListItemIcon>< ListIcon style={{color:"red"}}/></ListItemIcon>
             <ListItemText primary="My Uploads" />
           </ListItem>
           </a>
@@ -205,7 +205,7 @@ function ButtonAppBar(props) {
       <List>
       
           <ListItem button onClick={()=>closeLeft1()}>
-            <ListItemIcon>< ExitToAppIcon/></ListItemIcon>
+            <ListItemIcon>< ExitToAppIcon style={{color:"red"}}/></ListItemIcon>
             <ListItemText primary="Logout" />
           </ListItem>
           
@@ -217,15 +217,17 @@ function ButtonAppBar(props) {
       {User!=="" &&User.email ==="admin@g.com"?
       <>
       <List>
+      <a href="/favorites" style={{textDecoration:"none",color:"inherit"}} >
       <ListItem button onClick={()=>closeLeft()}>
-            <ListItemIcon>< FavoriteIcon/></ListItemIcon>
+            <ListItemIcon>< FavoriteIcon style={{color:"red"}}/></ListItemIcon>
             <ListItemText primary="Favorites" />
-      </ListItem>    
+      </ListItem>
+      </a>    
       </List> 
       <List>
       <a href="/pending" style={{textDecoration:"none",color:"inherit"}} >
           <ListItem button onClick={()=>closeLeft()}>
-            <ListItemIcon>< HourglassEmptyIcon/></ListItemIcon>
+            <ListItemIcon>< HourglassEmptyIcon style={{color:"red"}}/></ListItemIcon>
             <ListItemText primary="Pending Products" />
           </ListItem>
           </a>
@@ -234,7 +236,7 @@ function ButtonAppBar(props) {
       <List>
       
           <ListItem button onClick={()=>closeLeft1()}>
-            <ListItemIcon>< ExitToAppIcon/></ListItemIcon>
+            <ListItemIcon>< ExitToAppIcon style={{color:"red"}}/></ListItemIcon>
             <ListItemText primary="Logout" />
           </ListItem>
           
@@ -257,7 +259,7 @@ function ButtonAppBar(props) {
   return (
     <div className={classes.root}>
       <AppBar 
-      style={{background:"tomato"}} 
+      style={{background:"#dc3545"}} 
       position="static">
         <Toolbar>
           <IconButton 
