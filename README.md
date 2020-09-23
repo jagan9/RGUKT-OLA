@@ -49,7 +49,8 @@ all users will be able to see that product online. This is to ensure that no fak
 
 ## View live App
 
-Hosted at **https://jagan-47f02.web.app/**
+Hosted at **https://rgukt-ola.web.app/**
+and also you try at **https://rgukt-ola.firebase.com/**
 
 ## Tech Stack Used
 
